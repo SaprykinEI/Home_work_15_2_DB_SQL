@@ -75,6 +75,6 @@ if __name__ == '__main__':
     if flags == False:
         #Пример вызова SQL - запроса из SQL_Queries
         my_db_operator = HospitalDB(my_conn)
-        full_join_query = SQL_Queries.doc_otd()
-        my_db_operator.check_queries(WORK_DATABASE, full_join_query, r'file/data.json')
+        query_in_json = SQL_Queries.queries_full_join()
+        my_db_operator.check_queries(WORK_DATABASE, query_in_json, r'file/data.json')
 
