@@ -187,31 +187,4 @@ FULL JOIN
 
 """
     return QUERY
-def salary_doctors():
-    QUERY = '''SELECT Name, Surname, Salary FROM Doctors'''
-    return QUERY
-def count_exam():
-    QUERY = '''SELECT d.Name AS DoctorName, w.Name AS WardName, COUNT(de.Id) AS ExaminationCount
-FROM Doctors d
-JOIN DoctorsExaminations de ON d.Id = de.DoctorId
-JOIN Wards w ON de.WardId = w.Id
-GROUP BY d.Name, w.Name'''
-    return QUERY
-def doc_otd():
-    QUERY = '''SELECT d.Name + ' ' + d.Surname AS DoctorName, w.Name AS WardName
-FROM Doctors AS d
-JOIN DoctorsExaminations AS de ON d.Id = de.DoctorId
-JOIN Wards AS w ON de.WardId = w.Id;'''
-    return QUERY
-def depart_doc():
-    QUERY = '''None'''
-    return QUERY
-def sal_doc():
-    QUERY = '''SELECT d.Name, dep.Name
-FROM Doctors d
-JOIN Wards w ON d.Id = w.DepartmentId -- Необходимо соединение через промежуточную таблицу, связывающую Doctors и Departments
-JOIN Departments dep ON w.DepartmentId = dep.ID'''
-    return QUERY
-def calor_fruit():
-    QUERY = '''SELECT Название, Калорийность FROM fruits'''
-    return QUERY
+
