@@ -16,8 +16,6 @@ flag == True (работает первая часть) flag == False втора
 И запросы во второй части пока что нужно подкидывать вручную
 """
 
-
-
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 

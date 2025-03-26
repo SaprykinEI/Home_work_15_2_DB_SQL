@@ -1,4 +1,4 @@
 python-dotenv
 pyodbc
-requests
 google-generativeai
+requests

@@ -1,4 +1,3 @@
-
 import os
 from decimal import Decimal
 from datetime import date, datetime
@@ -54,4 +53,3 @@ class HospitalDB:
         elif isinstance(value, (date, datetime)):
             return value.strftime('%Y-%m-%d')
         return value
-

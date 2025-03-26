@@ -40,7 +40,6 @@ if __name__ == '__main__':
 
                 if my_conn:
                     try:
-
                         table_info = ConnectDB.get_table_info(my_conn)
 
                         if table_info:

@@ -33,7 +33,8 @@ class SQLQueryGenerator:
         """
 
         # Форматируем информацию о таблице для подсказки
-        table_info_str = "\n".join([f"Таблица: {table}, Столбцы: {', '.join(columns)}" for table, columns in table_info.items()])
+        table_info_str = "\n".join(
+            [f"Таблица: {table}, Столбцы: {', '.join(columns)}" for table, columns in table_info.items()])
 
         prompt = f"""
             Ты - эксперт в написании SQL-запросов для Microsoft SQL Server (T-SQL).
@@ -50,7 +51,8 @@ class SQLQueryGenerator:
         # Отправляем запрос в Google Gemini для генерации SQL
         try:
             model = genai.GenerativeModel('gemini-1.5-pro-latest')  # Укажите модель
-            response = model.generate_content(prompt)  # Убрал prompt=, так как имя аргумента является первым аргументом generate_content.
+            response = model.generate_content(
+                prompt)  # Убрал prompt=, так как имя аргумента является первым аргументом generate_content.
             sql_query = response.text.strip()
 
             # **УДАЛЕНИЕ ОБРАТНЫХ АПОСТРОФОВ**
@@ -90,8 +92,3 @@ class SQLQueryGenerator:
         # Записываем функцию в файл
         with open("SQL_Queries.py", "a", encoding='utf-8') as file:
             file.write(function_code)
-
-
-
-
-
