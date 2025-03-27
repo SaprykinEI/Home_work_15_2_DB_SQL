@@ -20,11 +20,11 @@ class ConnectDB:
             return conn
         except pyodbc.ProgrammingError as ex:
             logging.error(f"Ошибка подключения к базе данных: {ex}")
-            return None  # Возвращаем None в случае неудачи
+            return None
 
     @classmethod
     def close_connection(cls, conn_obj):
-        if conn_obj:  # Проверяем, существует ли объект соединения перед закрытием
+        if conn_obj:
             conn_obj.close()
             logging.info("Соединение с базой данных закрыто.")
 
@@ -49,6 +49,6 @@ class ConnectDB:
             return table_info
         except pyodbc.Error as ex:
             logging.error(f"Ошибка при получении информации о таблице: {ex}")
-            return {}  # Возвращаем пустой словарь в случае неудачи
+            return {}
         finally:
             cursor.close()

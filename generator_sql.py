@@ -12,7 +12,7 @@ from db_connection import ConnectDB
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Инициализация ключа API для Google Gemini
+
 load_dotenv()
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 
@@ -24,7 +24,7 @@ class SQLQueryGenerator:
         if self.conn:
             self.conn_cursor = self.conn.cursor()
         else:
-            self.conn_cursor = None  # Handle case where connection is None
+            self.conn_cursor = None
 
     @staticmethod
     def generate_sql_query(user_query, table_info):
@@ -32,7 +32,7 @@ class SQLQueryGenerator:
         Генерирует SQL-запрос на основе введенного пользователем текста.
         """
 
-        # Форматируем информацию о таблице для подсказки
+
         table_info_str = "\n".join(
             [f"Таблица: {table}, Столбцы: {', '.join(columns)}" for table, columns in table_info.items()])
 
@@ -50,19 +50,19 @@ class SQLQueryGenerator:
 
         # Отправляем запрос в Google Gemini для генерации SQL
         try:
-            model = genai.GenerativeModel('gemini-1.5-pro-latest')  # Укажите модель
+            model = genai.GenerativeModel('gemini-1.5-pro-latest')
             response = model.generate_content(
-                prompt)  # Убрал prompt=, так как имя аргумента является первым аргументом generate_content.
+                prompt)
             sql_query = response.text.strip()
 
-            # **УДАЛЕНИЕ ОБРАТНЫХ АПОСТРОФОВ**
+
             sql_query = sql_query.replace("```sql", "").replace("```", "").strip()
 
             if sql_query:
                 return sql_query
             else:
                 logging.warning("Gemini вернул пустой SQL-запрос.")
-                return None  # Или вернуть конкретное сообщение об ошибке
+                return None
         except Exception as e:
             logging.error(f"Ошибка во время генерации SQL: {e}")
             return None
@@ -84,11 +84,10 @@ class SQLQueryGenerator:
     import textwrap
 
     def create_query_function(self, query, name):
-        # Формируем строку с запросом внутри функции, начиная с нулевого отступа
-        function_code = f"def {name}():\n"  # Добавляем строку с названием функции
-        function_code += f"    QUERY = '''{query}'''\n"  # Строка запроса с правильным отступом
-        function_code += f"    return QUERY\n"  # Возвращаем результат с нужным отступом
+        """Формируем строку с запросом внутри функции, начиная с нулевого отступа"""
+        function_code = f"def {name}():\n"
+        function_code += f"    QUERY = '''{query}'''\n"
+        function_code += f"    return QUERY\n"
 
-        # Записываем функцию в файл
         with open("SQL_Queries.py", "a", encoding='utf-8') as file:
             file.write(function_code)
